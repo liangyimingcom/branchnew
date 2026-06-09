@@ -55,6 +55,17 @@ branchnew 试一下别的方案    # 名字可带空格/中文,不用加引号
 
 ## 安装
 
+### 🤖 让 Claude 帮你装(最省事)
+
+不想自己敲命令?把这个仓库交给 Claude Code,它会照着仓库里的 [`CLAUDE.md`](CLAUDE.md) 自动装好:
+
+- 克隆后在仓库目录里开 Claude,说一句「**帮我装 branchnew**」;或
+- 直接对 Claude 说「**帮我装一下 https://github.com/limin112/branchnew**」。
+
+Claude 会:跑 `install.sh`、问你要不要 iTerm2 ⌘F 热键、并把它自己做不了的两步(开 Python API、重启 iTerm2)清楚地告诉你。
+
+### 自己装(一行)
+
 **一行装好**(`branchnew` 命令 + `/branchnew` 斜杠命令,无需 clone):
 
 ```bash

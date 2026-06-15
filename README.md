@@ -38,7 +38,7 @@ branchnew 试一下别的方案    # 名字可带空格/中文,不用加引号
 
 ## 它做什么
 
-- **同上下文 + 分叉**:新窗格里跑 `claude --continue --fork-session`,接上 `$PWD` 里最近的那个会话,并 **fork** 成独立的一支——两边各走各的,互不影响。
+- **同上下文 + 分叉**:新窗格里跑 `claude --continue --fork-session --allow-dangerously-skip-permissions`,接上 `$PWD` 里最近的那个会话,并 **fork** 成独立的一支——两边各走各的,互不影响。
 - **自动命名**:不传名字时,新会话自动叫 `newBranch1`、`newBranch2`……(全局自增编号);传了名字就用你的名字。名字通过 `claude --name` 设置,显示在新会话的**输入框、`/resume` 选择器、终端标题**里,方便区分一堆分支。
 - **不改动任何文件或配置**:它只是开一个新的终端视图去跑 `claude`,纯粹的「开窗器」。
 
@@ -115,7 +115,7 @@ grep -q '.local/bin' ~/.zshrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> 
 `branchnew` 检测 `$TMUX` / `$TERM_PROGRAM` 选择后端,在新窗格/窗口里实际运行:
 
 ```bash
-cd <你当前的目录> && claude --continue --fork-session --name <名字>
+cd <你当前的目录> && claude --continue --fork-session --name <名字> --allow-dangerously-skip-permissions
 ```
 
 脚本本身**不写死任何个人路径**(只用 `$PWD`、`$@`),可以原样分享。
@@ -174,7 +174,7 @@ branchnew try other ideas # names may contain spaces — no quotes needed
 
 ## What it does
 
-- **Same context + branch off**: the new pane runs `claude --continue --fork-session`, resuming the most recent session in `$PWD` and **forking** it into an independent line — the two go their own ways, no interference.
+- **Same context + branch off**: the new pane runs `claude --continue --fork-session --allow-dangerously-skip-permissions`, resuming the most recent session in `$PWD` and **forking** it into an independent line — the two go their own ways, no interference.
 - **Auto-naming**: with no name, the new session is `newBranch1`, `newBranch2`, … (a global incrementing counter); pass a name and it uses yours. The name is set via `claude --name` and shows in the new session's **prompt box, `/resume` picker, and terminal title**.
 - **Changes no files or config**: it only opens a new terminal view running `claude` — purely a "window opener."
 
@@ -250,7 +250,7 @@ grep -q '.local/bin' ~/.zshrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> 
 `branchnew` detects `$TMUX` / `$TERM_PROGRAM` to pick a backend, and in the new pane/window runs:
 
 ```bash
-cd <your current dir> && claude --continue --fork-session --name <name>
+cd <your current dir> && claude --continue --fork-session --name <name> --allow-dangerously-skip-permissions
 ```
 
 The script hardcodes no personal paths (only `$PWD`, `$@`), so it's safe to share as-is.

@@ -4,7 +4,7 @@ claude_fork.py — iTerm2 AutoLaunch daemon.
 
 Press the hotkey (default: Command+F) in any iTerm pane that is
 running a Claude Code session, and it splits the pane to the right and forks
-*that exact* session there:  claude --resume <id> --fork-session
+*that exact* session there:  claude --resume <id> --fork-session --allow-dangerously-skip-permissions
 
 The pane -> session mapping is written by `branchnew --record` (run from the
 Claude SessionStart / UserPromptSubmit hooks) under
@@ -74,7 +74,7 @@ async def do_fork(app):
     # what lets a fork-of-a-fork fork the fork instead of the original.
     log("fork: pane=%s -> session=%s cwd=%s" % (guid, sid, cwd))
     new_session = await session.async_split_pane(vertical=True)
-    cmd = "claude --resume %s --fork-session -n fork" % shlex.quote(sid)
+    cmd = "claude --resume %s --fork-session -n fork --allow-dangerously-skip-permissions" % shlex.quote(sid)
     if cwd:
         cmd = "cd %s && %s" % (shlex.quote(cwd), cmd)
     await asyncio.sleep(0.35)  # let the new pane's shell come up

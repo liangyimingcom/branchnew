@@ -2,7 +2,7 @@
 
 按一个快捷键(默认 **⌘F**),就把**当前 iTerm 窗格里正在跑的那条 Claude Code 会话**,在右边劈一个窗格 fork 出来。
 
-和 `branchnew` 命令的关键区别:它 fork 的是**这个窗格里这一条确切的会话**(精确到 session id,`claude --resume <id>`),而不是「`$PWD` 里最近的那个」——所以 **fork-of-a-fork(对分支再分支)也能对**。
+和 `branchnew` 命令的关键区别:它 fork 的是**这个窗格里这一条确切的会话**(精确到 session id,`claude --resume <id> --allow-dangerously-skip-permissions`),而不是「`$PWD` 里最近的那个」——所以 **fork-of-a-fork(对分支再分支)也能对**。
 
 > 整套东西和 `branchnew` 命令共用一个脚本和 `~/.local/state/branchnew/` 状态目录:记录映射的活儿已经**并进 `branchnew --record`**(不再有单独的 `branchnew-record`)。
 
@@ -60,7 +60,8 @@ HOTKEY_MODS = {iterm2.Modifier.COMMAND}
   │     │  • 读 ~/.local/state/branchnew/iterm/<GUID> → sid, cwd    │
   │     ▼                                                            │
   │  向右劈窗格,在新窗格里运行:                                    │
-  │     cd <cwd> && claude --resume <sid> --fork-session -n fork    │
+  │     cd <cwd> && claude --resume <sid> --fork-session -n fork   │
+  │       --allow-dangerously-skip-permissions                     │
   └────────────────────────────────────────────────────────────────┘
 ```
 
@@ -92,7 +93,7 @@ HOTKEY_MODS = {iterm2.Modifier.COMMAND}
 - `KeystrokeFilter([pattern])` 拦截 ⌘F(避免这串键打进 shell);`KeystrokeMonitor` 收到按键后,匹配 keycode + 修饰键,调用 `do_fork()`。
 - `do_fork()`:取**当前窗口/标签/窗格**的 `session.session_id`(即 GUID)→ 读映射 → `async_split_pane(vertical=True)` 向右劈 → 在新窗格里 `async_send_text` 发:
   ```
-  cd <cwd> && claude --resume <sid> --fork-session -n fork
+  cd <cwd> && claude --resume <sid> --fork-session -n fork --allow-dangerously-skip-permissions
   ```
   (`<sid>`/`<cwd>` 都做了 `shlex.quote`;发送前 `sleep(0.35)` 等新窗格 shell 起来。)
 - 找不到映射时,日志写 `no mapping for pane guid=…` 并放弃(说明该窗格还没记录过 Claude 会话)。

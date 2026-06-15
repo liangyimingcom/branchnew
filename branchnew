@@ -107,7 +107,7 @@ print -u2 -r -- "branchnew: new branch session → ${name}"
 
 # Command the new pane will run. ${(q)...} keeps paths / names with spaces safe;
 # the new shell sees one --name argument even if the name contains spaces.
-cmd="cd ${(q)PWD} && claude --continue --fork-session --name ${(q)name}"
+cmd="cd ${(q)PWD} && claude --continue --fork-session --name ${(q)name} --allow-dangerously-skip-permissions"
 
 # Debug aid: BRANCHNEW_DRYRUN=1 prints what would run and opens nothing.
 if [[ -n "${BRANCHNEW_DRYRUN:-}" ]]; then
@@ -119,7 +119,7 @@ fi
 # ── Backends — always a split to the right, or the closest each one can do. ────
 launch_tmux() {
   tmux split-window -h -c "$PWD" || return 1
-  tmux send-keys "claude --continue --fork-session --name ${(q)name}" Enter
+  tmux send-keys "claude --continue --fork-session --name ${(q)name} --allow-dangerously-skip-permissions" Enter
 }
 
 launch_iterm() {

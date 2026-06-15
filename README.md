@@ -40,6 +40,7 @@ branchnew 试一下别的方案    # 名字可带空格/中文,不用加引号
 
 - **同上下文 + 分叉**:新窗格里跑 `claude --continue --fork-session --allow-dangerously-skip-permissions`,接上 `$PWD` 里最近的那个会话,并 **fork** 成独立的一支——两边各走各的,互不影响。
 - **自动命名**:不传名字时,新会话自动叫 `newBranch1`、`newBranch2`……(全局自增编号);传了名字就用你的名字。名字通过 `claude --name` 设置,显示在新会话的**输入框、`/resume` 选择器、终端标题**里,方便区分一堆分支。
+- **fork 后免确认(`--allow-dangerously-skip-permissions`)**:所有 fork 命令(命令行 + ⌘F 热键)都会带上这个参数,新窗格里的会话**跳过权限确认弹窗**、可以直接干活——免得每开一个分身都要重新点一遍授权。⚠️ 顾名思义这是「危险」选项:它会让 fork 出来的会话**无需逐次确认即可执行命令/改文件**,请只在你信任当前工作目录的前提下使用;不想要可手动从命令里删掉这个参数。
 - **不改动任何文件或配置**:它只是开一个新的终端视图去跑 `claude`,纯粹的「开窗器」。
 
 ## 支持的终端(自动识别)
@@ -176,7 +177,7 @@ branchnew try other ideas # names may contain spaces — no quotes needed
 
 - **Same context + branch off**: the new pane runs `claude --continue --fork-session --allow-dangerously-skip-permissions`, resuming the most recent session in `$PWD` and **forking** it into an independent line — the two go their own ways, no interference.
 - **Auto-naming**: with no name, the new session is `newBranch1`, `newBranch2`, … (a global incrementing counter); pass a name and it uses yours. The name is set via `claude --name` and shows in the new session's **prompt box, `/resume` picker, and terminal title**.
-- **Changes no files or config**: it only opens a new terminal view running `claude` — purely a "window opener."
+- **Skip permission prompts on fork (`--allow-dangerously-skip-permissions`)**: every fork command (CLI + the ⌘F hotkey) passes this flag so the new pane's session **starts without re-asking for permissions** and can get to work immediately — no clicking through the authorization prompt for each new clone. ⚠️ As the name says, this is the "dangerous" option: the forked session can **run commands / edit files without confirming each time**, so use it only when you trust the working directory. Don't want it? Just remove the flag from the command.
 
 ## Supported terminals (auto-detected)
 
